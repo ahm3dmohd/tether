@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blocked by Tether</title>
+  </head>
+  <body>
+    <main class="blocked">
+      <p class="brand muted">Tether</p>
+      <h1 id="title">Blocked</h1>
+      <p id="subtitle" class="muted"></p>
+
+      <section id="actions" class="actions">
+        <button type="button" id="close" class="primary">Close this tab</button>
+      </section>
+
+      <details id="escape" class="card escape">
+        <summary id="escape-summary">I need it anyway</summary>
+        <div id="friction"></div>
+      </details>
+
+      <section id="done" class="card" hidden></section>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
