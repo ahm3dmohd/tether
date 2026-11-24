@@ -6,51 +6,76 @@
     <title>Tether dashboard</title>
   </head>
   <body>
-    <main class="dash">
-      <header class="top">
-        <h1>Tether</h1>
+    <main class="mx-auto grid max-w-5xl gap-6 px-5 pt-8 pb-16 sm:px-8">
+      <header class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="/icon/48.png" alt="" class="size-9 rounded-lg shadow-xs" />
+          <div>
+            <h1 class="text-xl font-semibold tracking-tight">Tether</h1>
+            <p class="text-xs text-muted-foreground">Your last 7 days</p>
+          </div>
+        </div>
         <span id="focus-pill" class="pill">Focus off</span>
       </header>
 
-      <section class="tiles" aria-label="Last 7 days">
-        <div class="card tile"><p class="muted">Distracting today</p><p id="t-today" class="num">0m</p></div>
-        <div class="card tile"><p class="muted">Distracting, 7 days</p><p id="t-week" class="num">0m</p></div>
-        <div class="card tile"><p class="muted">Nudges ignored</p><p id="t-nudges" class="num">0</p></div>
-        <div class="card tile"><p class="muted">Bypasses used</p><p id="t-bypasses" class="num">0</p></div>
-        <div class="card tile"><p class="muted">Focus ended early</p><p id="t-ended" class="num">0</p></div>
+      <section
+        aria-label="Last 7 days"
+        class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 [&_.card]:grid [&_.card]:gap-1 [&_.card]:p-4 [&_.label]:text-xs [&_.label]:font-medium [&_.label]:text-muted-foreground [&_.num]:text-2xl [&_.num]:font-semibold [&_.num]:tracking-tight [&_.num]:tabular-nums"
+      >
+        <div class="card col-span-2 sm:col-span-1 md:col-span-1"><p class="label">Distracting today</p><p id="t-today" class="num">0m</p></div>
+        <div class="card"><p class="label">Distracting, 7 days</p><p id="t-week" class="num">0m</p></div>
+        <div class="card"><p class="label">Nudges ignored</p><p id="t-nudges" class="num">0</p></div>
+        <div class="card"><p class="label">Bypasses used</p><p id="t-bypasses" class="num">0</p></div>
+        <div class="card"><p class="label">Focus ended early</p><p id="t-ended" class="num">0</p></div>
       </section>
 
-      <section class="card">
-        <h2>Distracting time, last 7 days</h2>
-        <div class="chart-wrap"><canvas id="chart" aria-label="Distracting minutes per day" role="img"></canvas></div>
-      </section>
+      <div class="grid gap-6 lg:grid-cols-5">
+        <section class="card lg:col-span-3">
+          <h2 class="text-sm font-semibold">Distracting time</h2>
+          <p class="mb-4 text-xs text-muted-foreground">Minutes per day on your listed sites</p>
+          <div class="relative h-60"><canvas id="chart" aria-label="Distracting minutes per day" role="img"></canvas></div>
+        </section>
 
-      <section class="card">
-        <h2>Sites, last 7 days</h2>
-        <div class="table-wrap">
-          <table id="sites">
-            <thead>
-              <tr><th>Site</th><th class="n">Today</th><th class="n">7 days</th><th class="n">Daily avg</th></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+        <section class="card lg:col-span-2">
+          <h2 class="text-sm font-semibold">Sites</h2>
+          <p class="mb-3 text-xs text-muted-foreground">Everything with a minute or more this week</p>
+          <div class="overflow-x-auto">
+            <table
+              id="sites"
+              class="w-full text-[13px] tabular-nums [&_th]:h-9 [&_th]:px-2 [&_th]:text-left [&_th]:text-xs [&_th]:font-medium [&_th]:text-muted-foreground [&_td]:h-10 [&_td]:border-t [&_td]:px-2 [&_td:first-child]:font-medium [&_tbody_tr]:transition-colors [&_tbody_tr:hover]:bg-muted/50 [&_.n]:text-right"
+            >
+              <thead>
+                <tr><th>Site</th><th class="n">Today</th><th class="n">7 days</th><th class="n">Daily avg</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p id="sites-empty" class="py-6 text-center text-xs text-muted-foreground" hidden>
+            Nothing tracked yet. Browse for a bit and come back.
+          </p>
+        </section>
+      </div>
+
+      <section class="card p-0">
+        <div class="border-b px-5 py-4">
+          <h2 class="text-sm font-semibold">Settings</h2>
+          <p class="text-xs text-muted-foreground">Changes apply when you save.</p>
         </div>
-        <p id="sites-empty" class="muted" hidden>Nothing tracked yet. Browse for a bit and come back.</p>
-      </section>
 
-      <section class="card settings">
-        <h2>Settings</h2>
-        <p id="locked" class="locked" hidden>
-          Focus is on, so you can add sites but not remove them or change focus hours. That's on purpose.
-        </p>
+        <form id="settings-form" class="grid gap-0 [&_fieldset]:grid [&_fieldset]:gap-3 [&_fieldset]:border-b [&_fieldset]:px-5 [&_fieldset]:py-5 [&_legend]:float-left [&_legend]:mb-1 [&_legend]:w-full [&_legend]:text-sm [&_legend]:font-medium [&_label]:flex [&_label]:flex-wrap [&_label]:items-center [&_label]:gap-2 [&_label]:text-[13px] [&_input[type=number]]:w-20">
+          <p id="locked" class="mx-5 mt-5 rounded-lg border border-primary/30 bg-primary-soft px-4 py-3 text-[13px] text-primary-soft-foreground" hidden>
+            Focus is on, so you can add sites but not remove them or change focus hours. That's on purpose.
+          </p>
 
-        <form id="settings-form">
           <fieldset>
             <legend>Distracting sites</legend>
-            <p class="muted small">Subdomains count too: <code>youtube.com</code> covers <code>m.youtube.com</code>.</p>
-            <ul id="site-list" class="site-list"></ul>
-            <div class="add-row">
-              <input type="text" id="add-site" placeholder="e.g. twitch.tv" aria-label="Site to add" />
+            <p class="text-xs text-muted-foreground">Subdomains count too: <code>youtube.com</code> covers <code>m.youtube.com</code>.</p>
+            <ul
+              id="site-list"
+              class="flex flex-wrap gap-2 [&>li]:inline-flex [&>li]:h-8 [&>li]:items-center [&>li]:gap-1 [&>li]:rounded-full [&>li]:border [&>li]:bg-muted/60 [&>li]:pr-1 [&>li]:pl-3 [&>li]:text-[13px] [&>li]:font-medium [&_button]:size-6 [&_button]:rounded-full [&_button]:border-0 [&_button]:bg-transparent [&_button]:p-0 [&_button]:text-base [&_button]:text-muted-foreground [&_button]:shadow-none [&_button:hover]:bg-destructive-soft [&_button:hover]:text-destructive [&_button:disabled]:invisible"
+            ></ul>
+            <div class="flex gap-2">
+              <input type="text" id="add-site" placeholder="e.g. twitch.tv" aria-label="Site to add" class="min-w-0 flex-1" />
               <button type="button" id="add-btn">Add</button>
             </div>
           </fieldset>
@@ -63,21 +88,25 @@
 
           <fieldset>
             <legend>Focus hours</legend>
-            <label class="check"><input type="checkbox" id="focus-enabled" /> Block listed sites every day</label>
+            <label><input type="checkbox" id="focus-enabled" /> Block listed sites every day</label>
             <label>From <input type="time" id="focus-start" /> to <input type="time" id="focus-end" /></label>
           </fieldset>
 
-          <div class="save-row">
+          <div class="flex flex-wrap items-center gap-3 px-5 py-4">
             <button type="submit" class="primary" id="save">Save settings</button>
-            <span id="save-msg" class="small" aria-live="polite"></span>
+            <span id="save-msg" class="text-xs text-muted-foreground" aria-live="polite"></span>
           </div>
         </form>
       </section>
 
-      <section class="card data">
-        <h2>Your data</h2>
-        <p class="muted small">Everything stays in this browser. Nothing is sent anywhere. Data older than 90 days is deleted automatically.</p>
-        <div class="data-row">
+      <section class="card flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-sm font-semibold">Your data</h2>
+          <p class="max-w-md text-xs text-muted-foreground">
+            Everything stays in this browser. Nothing is sent anywhere. Data older than 90 days is deleted automatically.
+          </p>
+        </div>
+        <div class="flex gap-2">
           <button type="button" id="export">Export CSV</button>
           <button type="button" id="delete" class="danger">Delete all data…</button>
         </div>

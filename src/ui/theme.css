@@ -1,85 +1,139 @@
-/* Shared look for the popup, block page and dashboard. Light and dark. */
+/*
+ * Tether design system: Tailwind CSS v4 with shadcn/ui-style tokens.
+ *
+ * Tokens follow shadcn's naming (background, foreground, card, muted,
+ * primary, destructive, border, input, ring) so the utilities read the same
+ * as shadcn components: bg-card, text-muted-foreground, border-border...
+ * Neutrals are zinc; the brand colour is teal. Dark mode follows the system.
+ *
+ * The small set of semantic classes in @layer components (.card, buttons,
+ * .pill, .dot...) exists because some markup is created from TypeScript;
+ * everything else is styled with utilities in the HTML.
+ */
+@import 'tailwindcss';
+
 :root {
-  color-scheme: light dark;
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --surface-2: #f1f5f9;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --muted: #64748b;
-  --accent: #0f766e;
-  --accent-hover: #115e59;
-  --accent-soft: #ccfbf1;
-  --accent-text: #ffffff;
-  --warn: #b91c1c;
-  --warn-soft: #fee2e2;
-  --radius: 12px;
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius: 0.75rem;
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --primary: oklch(0.511 0.096 186.391);
+  --primary-hover: oklch(0.437 0.078 188.216);
+  --primary-foreground: oklch(0.984 0.014 180.72);
+  --primary-soft: oklch(0.953 0.051 180.801);
+  --primary-soft-foreground: oklch(0.386 0.063 188.416);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-soft: oklch(0.971 0.013 17.38);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.704 0.14 182.503);
+  --chart-1: oklch(0.6 0.118 184.704);
+  color-scheme: light;
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0b1120;
-    --surface: #111827;
-    --surface-2: #1f2937;
-    --border: #1f2937;
-    --text: #e5e7eb;
-    --muted: #94a3b8;
-    --accent: #2dd4bf;
-    --accent-hover: #5eead4;
-    --accent-soft: #134e4a;
-    --accent-text: #042f2e;
-    --warn: #f87171;
-    --warn-soft: #450a0a;
+    --background: oklch(0.141 0.005 285.823);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.21 0.006 285.885);
+    --card-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.274 0.006 286.033);
+    --muted-foreground: oklch(0.705 0.015 286.067);
+    --primary: oklch(0.777 0.152 181.912);
+    --primary-hover: oklch(0.855 0.138 181.071);
+    --primary-foreground: oklch(0.277 0.046 192.524);
+    --primary-soft: oklch(0.277 0.046 192.524);
+    --primary-soft-foreground: oklch(0.855 0.138 181.071);
+    --destructive: oklch(0.704 0.191 22.216);
+    --destructive-soft: oklch(0.258 0.092 26.042);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.704 0.14 182.503);
+    --chart-1: oklch(0.704 0.14 182.503);
+    color-scheme: dark;
   }
 }
-* { box-sizing: border-box; }
-[hidden] { display: none !important; }
-html, body { margin: 0; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font: 14px/1.5 var(--font);
-  -webkit-font-smoothing: antialiased;
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-soft-foreground: var(--primary-soft-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
-h1, h2, h3 { line-height: 1.25; margin: 0; }
-a { color: var(--accent); }
-.muted { color: var(--muted); }
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
+
+@layer base {
+  * { @apply border-border; }
+  [hidden] { display: none !important; }
+  body {
+    @apply bg-background text-foreground font-sans text-sm antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  a { @apply text-primary underline-offset-4 hover:underline; }
+  code { @apply rounded-sm bg-muted px-1.5 py-0.5 font-mono text-xs; }
+  ::selection { @apply bg-primary-soft text-primary-soft-foreground; }
 }
-button, .btn {
-  font: inherit; font-weight: 600;
-  padding: 9px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+
+@layer components {
+  /* Surfaces */
+  .card {
+    @apply rounded-xl border bg-card text-card-foreground shadow-xs p-5;
+  }
+  .muted { @apply text-muted-foreground; }
+  .error { @apply text-destructive; }
+
+  /* Buttons: shadcn's outline (default here), primary and destructive variants */
+  button, .btn {
+    @apply inline-flex h-9 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md
+      border border-input bg-card px-4 text-sm font-medium text-foreground no-underline shadow-xs
+      transition-[color,background-color,box-shadow] outline-none
+      hover:bg-muted hover:no-underline
+      focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring
+      disabled:pointer-events-none disabled:opacity-50;
+  }
+  button.primary, .btn.primary {
+    @apply border-transparent bg-primary text-primary-foreground hover:bg-primary-hover;
+  }
+  button.danger {
+    @apply text-destructive hover:bg-destructive-soft;
+  }
+
+  /* Inputs */
+  input[type='text'], input[type='number'], input[type='time'] {
+    @apply h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none
+      transition-[color,box-shadow] placeholder:text-muted-foreground
+      focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  input[type='checkbox'] { @apply size-4 accent-primary; }
+
+  /* Badge */
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground;
+  }
+  .pill::before { content: ''; @apply size-1.5 rounded-full bg-muted-foreground/60; }
+  .pill.on { @apply border-transparent bg-primary-soft text-primary-soft-foreground; }
+  .pill.on::before { @apply bg-primary animate-pulse; }
+
+  /* Marks a site on the distracting list */
+  .dot { @apply mr-2 inline-block size-2 shrink-0 rounded-full bg-destructive align-middle; }
 }
-button:hover:not(:disabled), .btn:hover { background: var(--surface-2); }
-button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
-button.primary:hover:not(:disabled) { background: var(--accent-hover); }
-button.danger { color: var(--warn); }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
-button:focus-visible, input:focus-visible, .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-input[type="text"], input[type="number"], input[type="time"] {
-  font: inherit;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--text);
-}
-.pill {
-  display: inline-block; padding: 2px 8px; border-radius: 999px;
-  font-size: 12px; font-weight: 600;
-  background: var(--surface-2); color: var(--muted);
-}
-.pill.on { background: var(--accent-soft); color: var(--accent); }
-.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--warn); margin-right: 6px; vertical-align: middle; }
-.error { color: var(--warn); }

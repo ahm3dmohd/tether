@@ -321,7 +321,7 @@ tether/
 │   │   ├── index.ts         # Site lookup + placeholder text
 │   │   └── sites/*.ts       # One file per site: CSS selectors and feed paths
 │   └── ui/
-│       ├── theme.css        # Shared light/dark styles
+│       ├── theme.css        # Tailwind v4 + shadcn-style design tokens (light/dark)
 │       └── friction.ts      # Type-the-sentence-then-wait flow
 └── tests/
     ├── unit/                # Vitest
