@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tether dashboard</title>
+  </head>
+  <body>
+    <main class="dash">
+      <header class="top">
+        <h1>Tether</h1>
+        <span id="focus-pill" class="pill">Focus off</span>
+      </header>
+
+      <section class="tiles" aria-label="Last 7 days">
+        <div class="card tile"><p class="muted">Distracting today</p><p id="t-today" class="num">0m</p></div>
+        <div class="card tile"><p class="muted">Distracting, 7 days</p><p id="t-week" class="num">0m</p></div>
+        <div class="card tile"><p class="muted">Nudges ignored</p><p id="t-nudges" class="num">0</p></div>
+        <div class="card tile"><p class="muted">Bypasses used</p><p id="t-bypasses" class="num">0</p></div>
+        <div class="card tile"><p class="muted">Focus ended early</p><p id="t-ended" class="num">0</p></div>
+      </section>
+
+      <section class="card">
+        <h2>Distracting time, last 7 days</h2>
+        <div class="chart-wrap"><canvas id="chart" aria-label="Distracting minutes per day" role="img"></canvas></div>
+      </section>
+
+      <section class="card">
+        <h2>Sites, last 7 days</h2>
+        <div class="table-wrap">
+          <table id="sites">
+            <thead>
+              <tr><th>Site</th><th class="n">Today</th><th class="n">7 days</th><th class="n">Daily avg</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p id="sites-empty" class="muted" hidden>Nothing tracked yet. Browse for a bit and come back.</p>
+      </section>
+
+      <section class="card settings">
+        <h2>Settings</h2>
+        <p id="locked" class="locked" hidden>
+          Focus is on, so you can add sites but not remove them or change focus hours. That's on purpose.
+        </p>
+
+        <form id="settings-form">
+          <fieldset>
+            <legend>Distracting sites</legend>
+            <p class="muted small">Subdomains count too: <code>youtube.com</code> covers <code>m.youtube.com</code>.</p>
+            <ul id="site-list" class="site-list"></ul>
+            <div class="add-row">
+              <input type="text" id="add-site" placeholder="e.g. twitch.tv" aria-label="Site to add" />
+              <button type="button" id="add-btn">Add</button>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Awareness</legend>
+            <label>Nudge after <input type="number" id="nudge" min="1" max="240" /> continuous minutes on a listed site</label>
+            <label>Turn the badge red after <input type="number" id="badge" min="1" max="1440" /> minutes a day on a site</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Focus hours</legend>
+            <label class="check"><input type="checkbox" id="focus-enabled" /> Block listed sites every day</label>
+            <label>From <input type="time" id="focus-start" /> to <input type="time" id="focus-end" /></label>
+          </fieldset>
+
+          <div class="save-row">
+            <button type="submit" class="primary" id="save">Save settings</button>
+            <span id="save-msg" class="small" aria-live="polite"></span>
+          </div>
+        </form>
+      </section>
+
+      <section class="card data">
+        <h2>Your data</h2>
+        <p class="muted small">Everything stays in this browser. Nothing is sent anywhere. Data older than 90 days is deleted automatically.</p>
+        <div class="data-row">
+          <button type="button" id="export">Export CSV</button>
+          <button type="button" id="delete" class="danger">Delete all data…</button>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tether</title>
+  </head>
+  <body>
+    <main class="popup">
+      <header class="head">
+        <h1>Tether</h1>
+        <span id="focus-pill" class="pill">Focus off</span>
+      </header>
+
+      <section class="today card">
+        <p class="muted label">Distracting today</p>
+        <p id="distracting" class="big">0m</p>
+        <p class="muted small">of <span id="total">0m</span> browsing</p>
+        <ol id="top" class="top"></ol>
+      </section>
+
+      <section class="focus card">
+        <p id="focus-text" class="small"></p>
+        <div id="start-row" class="row">
+          <button type="button" class="primary" data-minutes="60">Focus 1h</button>
+          <button type="button" class="primary" data-minutes="120">2h</button>
+          <button type="button" class="primary" data-minutes="240">4h</button>
+        </div>
+        <button type="button" id="end-focus" class="danger" hidden>End focus early…</button>
+      </section>
+
+      <p id="error" class="error small" hidden></p>
+
+      <footer>
+        <a id="dashboard" href="#">Open dashboard</a>
+      </footer>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
