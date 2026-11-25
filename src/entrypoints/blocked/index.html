@@ -5,22 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blocked by Tether</title>
   </head>
-  <body>
-    <main class="blocked">
-      <p class="brand muted">Tether</p>
-      <h1 id="title">Blocked</h1>
-      <p id="subtitle" class="muted"></p>
+  <body class="min-h-screen bg-[radial-gradient(ellipse_at_top,var(--primary-soft),transparent_60%)]">
+    <main class="mx-auto grid max-w-lg gap-6 px-5 pt-[14vh] pb-12 text-center">
+      <div class="mx-auto flex items-center gap-2 text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+        <img src="/icon/32.png" alt="" class="size-5 rounded" />
+        Tether
+      </div>
 
-      <section id="actions" class="actions">
-        <button type="button" id="close" class="primary">Close this tab</button>
+      <div class="grid gap-2">
+        <h1 id="title" class="text-3xl font-semibold tracking-tight text-balance [overflow-wrap:anywhere] sm:text-4xl">Blocked</h1>
+        <p id="subtitle" class="text-base text-muted-foreground"></p>
+      </div>
+
+      <section id="actions" class="flex justify-center">
+        <button type="button" id="close" class="primary h-10 px-6">Close this tab</button>
       </section>
 
-      <details id="escape" class="card escape">
-        <summary id="escape-summary">I need it anyway</summary>
-        <div id="friction"></div>
+      <details id="escape" class="card group p-0 text-left open:shadow-sm">
+        <summary
+          id="escape-summary"
+          class="flex cursor-pointer list-none items-center justify-between rounded-xl px-5 py-4 text-sm font-medium text-muted-foreground select-none hover:text-foreground [&::-webkit-details-marker]:hidden after:content-['+'] after:text-lg after:leading-none group-open:after:content-['−']"
+        >I need it anyway</summary>
+        <div
+          id="friction"
+          class="grid gap-3 border-t px-5 pt-4 pb-5 [&_.friction-label]:text-xs [&_.friction-label]:font-medium [&_.friction-label]:text-muted-foreground [&_.friction-sentence]:rounded-md [&_.friction-sentence]:bg-muted [&_.friction-sentence]:px-3 [&_.friction-sentence]:py-2.5 [&_.friction-sentence]:text-base [&_.friction-sentence]:font-medium [&_.friction-sentence]:select-none [&_.friction-input]:w-full [&_.friction-status]:min-h-5 [&_.friction-status]:text-xs [&_.friction-go]:w-full"
+        ></div>
       </details>
 
-      <section id="done" class="card" hidden></section>
+      <section id="done" class="card grid justify-items-center gap-4 [&_p]:text-muted-foreground" hidden></section>
     </main>
     <script type="module" src="./main.ts"></script>
   </body>

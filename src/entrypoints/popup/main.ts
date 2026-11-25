@@ -1,5 +1,4 @@
 import '@/ui/theme.css';
-import './style.css';
 import { browser } from 'wxt/browser';
 import { send, type Status } from '@/lib/messages';
 import { formatDuration } from '@/lib/time';

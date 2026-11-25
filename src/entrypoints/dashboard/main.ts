@@ -1,5 +1,4 @@
 import '@/ui/theme.css';
-import './style.css';
 import { BarController, BarElement, CategoryScale, Chart, LinearScale, Tooltip } from 'chart.js';
 import { browser } from 'wxt/browser';
 import { dailyCsv, eventsCsv } from '@/lib/csv';
@@ -46,7 +45,7 @@ function renderStats(data: LocalData, now: number): void {
   if (!chart) {
     chart = new Chart($<HTMLCanvasElement>('chart'), {
       type: 'bar',
-      data: { labels, datasets: [{ data: minutes, backgroundColor: cssVar('--accent'), borderRadius: 6, maxBarThickness: 48 }] },
+      data: { labels, datasets: [{ data: minutes, backgroundColor: cssVar('--chart-1'), hoverBackgroundColor: cssVar('--primary'), borderRadius: 6, borderSkipped: false, maxBarThickness: 44 }] },
       options: {
         maintainAspectRatio: false,
         animation: false,
@@ -55,11 +54,12 @@ function renderStats(data: LocalData, now: number): void {
           tooltip: { callbacks: { label: (ctx) => formatDuration(Number(ctx.raw) * 60) } },
         },
         scales: {
-          x: { grid: { display: false }, ticks: { color: cssVar('--muted') } },
+          x: { grid: { display: false }, ticks: { color: cssVar('--muted-foreground'), font: { size: 11 } } },
           y: {
             beginAtZero: true,
             grid: { color: cssVar('--border') },
-            ticks: { color: cssVar('--muted'), callback: (v) => `${v}m`, precision: 0 },
+            border: { display: false },
+            ticks: { color: cssVar('--muted-foreground'), font: { size: 11 }, callback: (v) => `${v}m`, precision: 0 },
           },
         },
       },

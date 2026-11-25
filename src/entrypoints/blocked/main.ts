@@ -5,7 +5,6 @@
  * Both put the same friction between the user and the way out.
  */
 import '@/ui/theme.css';
-import './style.css';
 import { browser } from 'wxt/browser';
 import { BYPASS_MINUTES } from '@/lib/constants';
 import type { FocusStatus } from '@/lib/focus';

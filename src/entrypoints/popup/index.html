@@ -5,34 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tether</title>
   </head>
-  <body>
-    <main class="popup">
-      <header class="head">
-        <h1>Tether</h1>
+  <body class="w-[320px]">
+    <main class="grid gap-3 p-3">
+      <header class="flex items-center justify-between px-1 pt-1">
+        <div class="flex items-center gap-2">
+          <img src="/icon/32.png" alt="" class="size-6 rounded-md" />
+          <h1 class="text-[15px] font-semibold tracking-tight">Tether</h1>
+        </div>
         <span id="focus-pill" class="pill">Focus off</span>
       </header>
 
-      <section class="today card">
-        <p class="muted label">Distracting today</p>
-        <p id="distracting" class="big">0m</p>
-        <p class="muted small">of <span id="total">0m</span> browsing</p>
-        <ol id="top" class="top"></ol>
+      <section class="card p-4">
+        <p class="text-xs font-medium text-muted-foreground">Distracting today</p>
+        <p id="distracting" class="mt-1 text-4xl font-semibold tracking-tight tabular-nums">0m</p>
+        <p class="mt-1 text-xs text-muted-foreground">of <span id="total" class="tabular-nums">0m</span> browsing</p>
+        <div class="my-4 h-px bg-border"></div>
+        <ol
+          id="top"
+          class="grid gap-2.5 text-[13px] [&>li]:flex [&>li]:items-center [&>li]:justify-between [&>li]:gap-3 [&>li>span:last-child]:tabular-nums [&>li>span:last-child]:text-muted-foreground [&_.name]:flex [&_.name]:items-center [&_.name]:truncate [&_.name]:font-medium empty:before:text-muted-foreground empty:before:content-['Nothing_tracked_yet_today.']"
+        ></ol>
       </section>
 
-      <section class="focus card">
-        <p id="focus-text" class="small"></p>
-        <div id="start-row" class="row">
+      <section class="card grid gap-3 p-4">
+        <p id="focus-text" class="text-[13px] leading-relaxed text-muted-foreground"></p>
+        <div id="start-row" class="grid grid-cols-[1.5fr_1fr_1fr] gap-2">
           <button type="button" class="primary" data-minutes="60">Focus 1h</button>
           <button type="button" class="primary" data-minutes="120">2h</button>
           <button type="button" class="primary" data-minutes="240">4h</button>
         </div>
-        <button type="button" id="end-focus" class="danger" hidden>End focus early…</button>
+        <button type="button" id="end-focus" class="danger w-full" hidden>End focus early…</button>
       </section>
 
-      <p id="error" class="error small" hidden></p>
+      <p id="error" class="error px-1 text-xs" hidden></p>
 
-      <footer>
-        <a id="dashboard" href="#">Open dashboard</a>
+      <footer class="flex justify-center pb-1">
+        <a id="dashboard" href="#" class="text-[13px] font-medium">Open dashboard →</a>
       </footer>
     </main>
     <script type="module" src="./main.ts"></script>

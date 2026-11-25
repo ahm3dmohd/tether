@@ -1,9 +1,11 @@
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'wxt';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
   srcDir: 'src',
   outDir: 'dist',
+  vite: () => ({ plugins: [tailwindcss()] }),
   manifest: {
     name: 'Tether',
     description: 'Keeps YouTube and social media from eating your day: live time badge, nudges, focus blocking.',
